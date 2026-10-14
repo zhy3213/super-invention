@@ -6,6 +6,8 @@
 
 Self-Composing Personal Agent 不是“更聪明的聊天机器人”，而是一个会根据用户意图、历史模式、任务复杂度、重复频率和程序化收益，持续为用户生成最合适交互形态与个人软件的 agent。
 
+它建立在传统 personal agent 的对话、记忆、工具调用和任务执行能力之上，进一步将这些能力组织成可组合、可视化、可持久化的个人软件层。
+
 它的最终形态不是所有任务都回到聊天框，而是：
 
 ```text
@@ -66,7 +68,7 @@ Self-Composing Personal Agent 是一种新的个人计算层：agent 不只操�
 
 ### 2. Compile once, execute many times
 
-普通 agent 的路径是：
+传统 personal agent 的典型路径是：
 
 ```text
 Prompt → LLM reasoning → tool call → response
@@ -104,15 +106,15 @@ Prompt → task pattern → generated surface → executable workflow → derive
 
 ## Derived App 是什么
 
-Derived App 是由 Hermes 根据用户需求生成或维护的小型个人应用。它通常包括：
+Derived App 是由 personal agent 根据用户需求生成或维护的小型个人应用。它通常包括：
 
 - 一个 WebUI surface：让用户通过页面、按钮、表单、列表和状态面板交互。
 - 一个 deterministic executor：用脚本稳定执行工作流。
 - 一个 manifest：声明 app 元数据、入口、权限、状态和 executor。
 - 一个 input schema：定义输入字段和校验规则。
 - 本地状态和运行历史：记录默认配置、最近运行结果、stdout/stderr、错误和完成状态。
-- 可选的 Hermes API 调用：当脚本需要语义判断、总结或生成时，显式调用 Hermes API Server。
-- 可选的 Hermes cron 调度：定时运行稳定脚本，而不是定时跑 prompt。
+- 可选的 agent API 调用：当脚本需要语义判断、总结或生成时，显式调用 agent 提供的语义能力接口。
+- 可选的定时调度：定时运行稳定脚本，而不是定时跑 prompt。
 
 ## 用户价值
 
@@ -133,9 +135,9 @@ Self-Composing Personal Agent 的价值不是“又一个 agent chat UI”，而
 
 > The agent learns not only what you mean, but what interface your life needs.
 
-## 与普通 agent 的区别
+## 与传统 personal agent 的区别
 
-| 维度 | 普通 Agent | Self-Composing Personal Agent |
+| 维度 | 传统 Personal Agent | Self-Composing Personal Agent |
 | --- | --- | --- |
 | 主入口 | 聊天框 | 聊天 + shortcut + surface + app |
 | 任务执行 | 每次 prompt 推理 | 稳定任务编译为 executor |
@@ -144,23 +146,23 @@ Self-Composing Personal Agent 的价值不是“又一个 agent chat UI”，而
 | LLM 角色 | 默认控制所有流程 | 只在语义/判断/生成处显式介入 |
 | 结果形态 | 文本回复 | 个人软件系统逐渐生长 |
 
-## Hermes 为什么适合做这个底座
+## 在传统 personal agent 的基础上扩展
 
-Hermes 已经具备 Self-Composing Personal Agent 的底层条件：
+Self-Composing Personal Agent 可以复用传统 personal agent 的基础能力，并按需补充运行与集成能力：
 
-- API Server：可作为 OpenAI-compatible agent backend。
-- 多入口：Discord、Telegram、CLI、API、webhook。
-- 长期上下文：memory、user profile、session DB、session_search。
-- 工具执行：terminal、file、browser、web、cron、messaging、MCP 等。
-- 技能沉淀：skills 本质上是 workflow fossilization / 经验固化。
-- 后台运行：cron jobs 和 webhook 触发。
-- 多 agent 协作：delegation、profiles、kanban 等。
+- 服务接口：通过 API 暴露 agent 能力，供界面、工作流和应用按需调用。
+- 多入口：聊天界面、CLI、API、webhook 等。
+- 长期上下文：记忆、用户偏好、会话历史和历史检索。
+- 工具执行：文件、终端、浏览器、外部服务和 MCP 等。
+- 技能沉淀：通过 skills 和可复用工作流积累任务经验。
+- 后台运行：定时任务和事件触发。
+- 多 agent 协作：任务拆解、委派与协同执行。
 
-因此 Hermes 缺的不是 agent brain，而是把 tools / memory / sessions / cron 包装成可组合、可视化、可持久化的 personal software layer。
+扩展的重点，是把已有的工具、记忆、会话和调度能力组织成 personal software layer，让 agent 能持续生成、托管和维护用户自己的交互界面、工作流与派生应用。
 
 ## 最简产品表达
 
-> Hermes chat 负责理解你和生成软件；Hermes App Runtime 负责托管和运行这些软件；Hermes cron 负责按时触发稳定脚本；Hermes API Server 只在脚本需要语义能力时被显式调用。
+> Personal agent 负责理解你和生成软件；App Runtime 负责托管和运行这些软件；调度系统负责按时触发稳定脚本；agent API 只在脚本需要语义能力时被显式调用。
 
 最终目标：
 
